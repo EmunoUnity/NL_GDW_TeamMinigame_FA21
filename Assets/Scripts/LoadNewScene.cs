@@ -17,6 +17,11 @@ public class LoadNewScene : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         } 
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     
