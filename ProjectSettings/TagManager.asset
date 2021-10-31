@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Gas
+  - Small gas
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TeamMiniGame.unity
     guid: 10abad0a0ad1cc449abe4b9d6cd732f2
   - enabled: 1
-    path: Assets/Scenes/TeamMiniGame 1.unity
+    path: Assets/Scenes/TeamMiniGameDrive.unity
     guid: f1491c6ab386c4546b7ee11859d31ce1
   m_configObjects: {}

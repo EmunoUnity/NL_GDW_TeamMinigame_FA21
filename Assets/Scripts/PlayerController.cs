@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public float gasCounter;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,19 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Gas"))
         {
+            GameObject GameManager = GameObject.Find("GameManager");
+            ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
+            scoreCounter.score += 5;
             gasCounter = gasCounter + 5;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Small gas"))
+        {
+            GameObject GameManager = GameObject.Find("GameManager");
+            ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
+            scoreCounter.score += 2;
+            gasCounter = gasCounter + 2;
             Destroy(collision.gameObject);
         }
     }
