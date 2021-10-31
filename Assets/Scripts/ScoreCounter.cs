@@ -17,10 +17,7 @@ public class ScoreCounter : MonoBehaviour
 
     // Start is called before the first frame update
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+  
     void Start()
     {
         txt.text = score.ToString();

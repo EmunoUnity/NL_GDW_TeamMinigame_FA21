@@ -9,6 +9,21 @@ public class CountDownTimer : MonoBehaviour
     public string levelToLoad;
     private float timer = 60f;
     public Text timerSeconds;
+
+    public GameObject car1Drive;
+
+    public GameObject car2Drive;
+
+    public Image line;
+
+    public Camera MainCamera;
+
+    public GameObject player1;
+
+    public GameObject player2;
+
+    public GameObject spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +37,15 @@ public class CountDownTimer : MonoBehaviour
         timerSeconds.text = timer.ToString("f2");
         if (timer <= 0)
         {
-            SceneManager.LoadScene(levelToLoad); 
+            Instantiate(car1Drive, car1Drive.transform.position, car1Drive.transform.rotation);
+            Instantiate(car2Drive, car2Drive.transform.position, car2Drive.transform.rotation);
+            Destroy(player2);
+            Destroy(player1);
+            Destroy(spawnManager);
+            MainCamera.enabled = false;
+            timerSeconds.enabled = false;
+            line.enabled = true;
+            timer = 100000000000000f;
         }
     }
 }
