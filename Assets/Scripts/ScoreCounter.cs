@@ -13,7 +13,7 @@ public class ScoreCounter : MonoBehaviour
 
     public float score2;
 
-
+    public float totalPoints;
 
     // Start is called before the first frame update
 

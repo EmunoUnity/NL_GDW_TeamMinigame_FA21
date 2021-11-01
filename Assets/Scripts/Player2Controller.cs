@@ -50,6 +50,9 @@ public class Player2Controller : MonoBehaviour
             GameObject GameManager = GameObject.Find("GameManager");
             ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
             scoreCounter.score2 += 5;
+            GameObject Car1 = GameObject.Find("Car1");
+            ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
+            totalPoints.totalPoints += 5;
             gasCounter2 = gasCounter2 + 5;
             Destroy(collision.gameObject);
         }
@@ -59,6 +62,9 @@ public class Player2Controller : MonoBehaviour
             GameObject GameManager = GameObject.Find("GameManager");
             ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
             scoreCounter.score2 += 2;
+            GameObject Car1 = GameObject.Find("Car1");
+            ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
+            totalPoints.totalPoints += 2;
             gasCounter2 = gasCounter2 + 2;
             Destroy(collision.gameObject);
         }
