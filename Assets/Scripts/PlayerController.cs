@@ -30,13 +30,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+
+        Vector3 movementDirection = new Vector3(0, 0, -horizontalInput);
+        movementDirection.Normalize();
+
+        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed, Space.World); ;
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
         }
+
+        if(movementDirection != Vector3.zero)
+        {
+            transform.forward = movementDirection;
+        }
+        
     }
 
     void OnCollisionEnter(Collision collision)
@@ -50,11 +60,10 @@ public class PlayerController : MonoBehaviour
         {
             GameObject GameManager = GameObject.Find("GameManager");
             ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
-            scoreCounter.score += 5;
+            scoreCounter.score =  scoreCounter.score + 5;
             GameObject Car1 = GameObject.Find("Car1");
             ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
-            totalPoints.totalPoints += 5;
-            gasCounter = gasCounter + 5;
+            totalPoints.totalPoints = totalPoints.totalPoints + 5;
             Destroy(collision.gameObject);
         }
 
@@ -64,10 +73,10 @@ public class PlayerController : MonoBehaviour
             ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
             GameObject Car1 = GameObject.Find("Car1");
             ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
-            totalPoints.totalPoints += 2;
-            scoreCounter.score += 2;
+            totalPoints.totalPoints = totalPoints.totalPoints + 2;
+            scoreCounter.score =  scoreCounter.score + 2;
             
-            gasCounter = gasCounter + 2;
+            
             Destroy(collision.gameObject);
         }
     }

@@ -9,6 +9,7 @@ TagManager:
   - Small gas
   - Player1
   - Player2
+  - Barrel
   layers:
   - Default
   - TransparentFX

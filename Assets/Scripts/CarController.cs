@@ -10,6 +10,11 @@ public class CarController : MonoBehaviour
 
     public float totalPoints;
 
+    public float timer = 0f;
+
+    public GameObject barrel;
+    public GameObject pointR, pointL, pointM;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +25,7 @@ public class CarController : MonoBehaviour
         GameObject Car1 = GameObject.Find("Car1");
         ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
 
-        speed = 7 + (scoreCounter.score / (totalPoints.totalPoints / 2));
+        speed = 7 + ((scoreCounter.score / (totalPoints.totalPoints) * 2));
     }
 
     // Update is called once per frame
@@ -29,5 +34,48 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.left * horizontalInput * Time.deltaTime * speed);
         transform.Translate(Vector3.back * 5 * Time.deltaTime * speed);
+
+        timer -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Keypad7) && timer <= 0)
+        {
+            Instantiate(barrel, pointL.transform.position, barrel.transform.rotation);
+            timer = 2f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad8) && timer <= 0)
+        {
+            Instantiate(barrel, pointM.transform.position, barrel.transform.rotation);
+            timer = 2f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad9) && timer <= 0)
+        {
+            Instantiate(barrel, pointR.transform.position, barrel.transform.rotation);
+            timer = 2f;
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Barrel"))
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(GotHit());
+        }
+    }
+
+   IEnumerator GotHit()
+    {
+        GameObject GameManager = GameObject.Find("GameManager");
+        ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
+
+        GameObject Car1 = GameObject.Find("Car1");
+        ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
+
+        speed = 7;
+        yield return new WaitForSeconds(.5f);
+        speed = 7 + ((scoreCounter.score / (totalPoints.totalPoints) * 2));
     }
 } 
