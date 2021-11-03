@@ -16,7 +16,7 @@ public class Car2Script : MonoBehaviour
         GameObject Car1 = GameObject.Find("Car1");
         ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
 
-        speed = 7 + (scoreCounter.score2 / totalPoints.totalPoints);
+        speed = 7 + (scoreCounter.score / (totalPoints.totalPoints / 2));
     }
 
     // Update is called once per frame
