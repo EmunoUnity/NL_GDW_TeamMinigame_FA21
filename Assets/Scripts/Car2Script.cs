@@ -10,6 +10,9 @@ public class Car2Script : MonoBehaviour
     public GameObject pointR, pointL, pointM;
     public float timer = 0f;
 
+    private AudioSource playerAudio;
+    public AudioClip crash;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,8 @@ public class Car2Script : MonoBehaviour
         ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
 
         speed = 7 + ((scoreCounter.score2 / (totalPoints.totalPoints)) * 2);
+
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,12 +60,15 @@ public class Car2Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Barrel"))
         {
             Destroy(collision.gameObject);
+           
             StartCoroutine(GotHit());
         }
     }
 
     IEnumerator GotHit()
     {
+        playerAudio.PlayOneShot(crash, 1.0f);
+
         GameObject GameManager = GameObject.Find("GameManager");
         ScoreCounter scoreCounter = GameManager.GetComponent<ScoreCounter>();
 

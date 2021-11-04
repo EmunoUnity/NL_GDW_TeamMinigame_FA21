@@ -17,6 +17,12 @@ public class PlayerController : MonoBehaviour
 
     public float gasCounter;
 
+    private AudioSource playerAudio;
+
+    public AudioClip jump;
+
+    public AudioClip pickup;
+
     
 
     // Start is called before the first frame update
@@ -24,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         isOnGround = true;
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,6 +47,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
+            playerAudio.PlayOneShot(jump, 1.0f);
         }
 
         if(movementDirection != Vector3.zero)
@@ -65,6 +73,7 @@ public class PlayerController : MonoBehaviour
             ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
             totalPoints.totalPoints = totalPoints.totalPoints + 5;
             Destroy(collision.gameObject);
+            playerAudio.PlayOneShot(pickup, 1.0f);
         }
 
         if (collision.gameObject.CompareTag("Small gas"))
@@ -75,8 +84,9 @@ public class PlayerController : MonoBehaviour
             ValueStorage totalPoints = Car1.GetComponent<ValueStorage>();
             totalPoints.totalPoints = totalPoints.totalPoints + 2;
             scoreCounter.score =  scoreCounter.score + 2;
-            
-            
+            playerAudio.PlayOneShot(pickup, 1.0f);
+
+
             Destroy(collision.gameObject);
         }
     }
